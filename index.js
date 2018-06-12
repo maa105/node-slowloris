@@ -16,7 +16,6 @@ module.exports = function(server, options) {
 
   server.on('connection', function(socket) {
     var socketData = {
-      start: Date.now(),
       received: 0,
       headerTimeoutTimer: headerTimeout ? setTimeout(function() {
         socket.write('HTTP/1.1 504 Gateway Timeout\r\n\r\n');
