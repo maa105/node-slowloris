@@ -1,6 +1,8 @@
 # node-slowloris
 helps aliviate slow loris attack by giving developer 2 extra options:
+
 1- headerTimeout, the timeout to receive the headers.
+
 2- minRate the minimum rate (bytes/second) with rateOverhead to compensate for initial delay to receive data
 ```  var http = require('http');
   var slowloris = require('slowloris');
