@@ -13,9 +13,9 @@ helps aliviate slow loris attack by giving developer 2 extra options:
   });
   server.listen(8080);
   slowloris(server, {
-    headerTimeout: 5000, // in ms, default 2000
+    headerTimeout: 5000, // in ms, default 2500
     minRate: 1000,       // bytes per second, default 500
-    rateOverhead: 100    // in ms this will be subtracted from the time when calculating the rate, default 500
+    rateOverhead: 100    // in ms this will be subtracted from the time when calculating the rate, default 50
   });
   ```
   
