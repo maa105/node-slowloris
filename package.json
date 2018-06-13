@@ -1,6 +1,6 @@
 {
   "name": "node-slowloris",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "helps aliviate slow loris attack by giving developer 2 extra options, 1- headerTimeout, the timeout to receive the headers. 2- minRate the minimum rate (bytes/second) with rateOverhead to compensate for initial delay to receive data",
   "main": "index.js",
   "scripts": {

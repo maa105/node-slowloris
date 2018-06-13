@@ -14,25 +14,28 @@ module.exports = function(server, options) {
 
   var rateOverhead = options.rateOverhead === undefined ? _default.rateOverhead : options.rateOverhead;
 
+  server.keepAliveTimeout = 0.00001;
   server.on('connection', function(socket) {
     var socketData = {
       received: 0,
       headerTimeoutTimer: headerTimeout ? setTimeout(function() {
-        socket.write('HTTP/1.1 504 Gateway Timeout\r\n\r\n');
-        socket.end();
-        headerTimeout = false;
+        if(socketData.headerTimeoutTimer) {
+          socket.write('HTTP/1.1 504 Gateway Timeout\r\n\r\n');
+          socket.end();
+          socketData.headerTimeoutTimer = false;
+        }
       }, headerTimeout) : false
     };
     socket.on('close', function(chunk) {
-      if(headerTimeout) {
+      if(socketData.headerTimeoutTimer) {
         clearTimeout(socketData.headerTimeoutTimer);
-        headerTimeout = false;
+        socketData.headerTimeoutTimer = false;
       }
     });
     socket.on('data', function(chunk) {
-      if(headerTimeout) {
+      if(socketData.headerTimeoutTimer) {
         clearTimeout(socketData.headerTimeoutTimer);
-        headerTimeout = false;
+        socketData.headerTimeoutTimer = false;
       }
       if(minRate) {
         socketData.received += chunk.length;
